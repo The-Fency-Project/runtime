@@ -14,7 +14,7 @@ OBJS_DEBUG := $(patsubst $(SRC_DIR)/%.c,$(DEBUG_DIR)/%.o,$(SRCS))
 OBJS_RELEASE := $(patsubst $(SRC_DIR)/%.c,$(RELEASE_DIR)/%.o,$(SRCS))
 
 # Compiler flags
-CFLAGS_COMMON := -std=c11 -Wall -Wextra -I$(INCLUDE_DIR)
+CFLAGS_COMMON := -std=c11 -Wall -Wextra -I$(INCLUDE_DIR) -lm
 CFLAGS_DEBUG := $(CFLAGS_COMMON) -g -O0 -DDEBUG
 CFLAGS_RELEASE := $(CFLAGS_COMMON) -O2 -DNDEBUG
 
@@ -49,6 +49,6 @@ clean:
 	rm -rf $(BUILD_DIR)
 
 .PHONY: install
-install: $(LIBNAME)
+install: $(RELEASE_DIR)/$(LIBNAME)
 	mkdir -p ~/.fency/runtime/
-	cp $(LIBNAME) ~/.fency/runtime/
+	cp $< ~/.fency/runtime/
